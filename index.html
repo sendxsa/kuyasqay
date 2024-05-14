@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message of Encouragement</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <div class="container">
+    <button id="play-music" style="background: transparent;">Click Me</button>
+  <audio id="background-music" controls hidden>
+    <source src="music/wave_to_earth.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+    <h1 id="greeting" style="display:none;">Halo, Ita 💕</h1>
+    <p id="encouragement-text"></p>
+  </div>
+  
+  <script>
+    const sentences = [
+      "Aku tau tugas yang lagi mau kamu kerjakan pasti berat",
+      "Tapi, tetap semangat yaa 💕",
+      "Kamu pasti bisa 💪🏻",
+      "Kalau ada yang bisa aku bantu bilang aku yaaaaa 🙏🙏",
+      "Aku selalu ada buat kamu 🫂",
+      "Jadi jangan sungkan yaaa 💕",
+    ];
+    let currentSentenceIndex = 0;
+    let intervalId;
+
+    const textElement = document.getElementById('encouragement-text');
+    const greetingElement = document.getElementById('greeting');
+    const music = document.getElementById('background-music');
+    const playButton = document.getElementById('play-music');
+
+    const displayText = () => {
+      textElement.innerText = sentences[currentSentenceIndex];
+      currentSentenceIndex++;
+      if (currentSentenceIndex >= sentences.length) {
+        clearInterval(intervalId);
+      }
+    };
+
+    playButton.addEventListener('click', function() {
+      greetingElement.style.display = 'block'; // Show the greeting "Halo, Ita"
+      playButton.style.display = 'none'; // Hide the "Click Me" button permanently after it's clicked
+
+      setTimeout(() => {
+        greetingElement.style.display = 'none'; // Hide the greeting after 5 seconds
+        displayText(); // Start displaying encouragement messages
+        intervalId = setInterval(displayText, 5000); // Continue every 5 seconds
+      }, 5000);
+
+      music.play(); // Start playing the music
+    });
+  </script>
+</body>
+</html>
